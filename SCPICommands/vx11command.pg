@@ -1,0 +1,9 @@
+import './args.pg' as args;
+import './addr.pg' as addr;
+
+//The default priority for rules is 10.
+command: addr=addr.addr args=argsSeparatedWithSpace? EOF;
+argsSeparatedWithSpace: whitespace args=args.args;
+
+terminals
+whitespace: /\s+/;

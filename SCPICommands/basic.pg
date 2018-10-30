@@ -1,0 +1,10 @@
+argument: argumentStart name=identifier argumentEnd;
+argOrOptionalArg: argument | nameOptionalArg;
+nameOptionalArg: optionalStart argument optionalEnd;
+
+terminals
+identifier: /[\da-zA-Z_]+/;
+optionalStart: "[";
+optionalEnd: "]";
+argumentStart: "<";
+argumentEnd: ">";

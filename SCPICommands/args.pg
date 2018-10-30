@@ -1,0 +1,28 @@
+import './basic.pg' as basic;
+
+//The default priority for rules is 10.
+args: regularArgs | optionalArgs;
+regularArgs: first=queryArg rest=restArgs?;
+optionalArgs: basic.optionalStart args=regularArgs basic.optionalEnd;
+
+argPart: regularArgPart | optionalArgsParts;
+regularArgPart: comma arg=queryArg;
+
+restArgs: argPart+;
+optionalArgsParts: basic.optionalStart args=restArgs basic.optionalEnd;
+
+queryArg: basic.argument | alternative | argInCurlyBraces;
+
+argInCurlyBraces: "{" arg=queryArg "}";
+
+alternativeArg: queryArg | stringConstant | number;
+alternative: first=alternativeArg delimiter=alternativeDelimiter last=alternativeArg {left};
+
+
+
+
+terminals
+comma: /,\s*/;
+number: /\d+(?:\.\d+)?/ {prefer};
+stringConstant: /[\da-zA-Z_]+/;
+alternativeDelimiter: "|";

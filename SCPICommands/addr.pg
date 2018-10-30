@@ -1,0 +1,20 @@
+//The default priority for rules is 10.
+import './basic.pg' as basic;
+addr: cmdName=cmdName queryMarker?=queryMarker?;
+
+addrToken: prefix=prefix name=name;
+addrPart: addrToken | optionalAddr;
+addrPath: addrPart+;
+optionalAddr: basic.optionalStart optionalPath=addrPath basic.optionalEnd;
+
+special: prefix=specialPrefix name=name;
+cmdName: special | addrPath;
+
+
+name: name=basic.identifier arg=basic.argOrOptionalArg?;
+
+
+terminals
+queryMarker: "?";
+prefix: ":";
+specialPrefix: "*";
